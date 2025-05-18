@@ -37,8 +37,8 @@ const Navbar = () => {
         <div className="md:hidden bg-[#1E2A38] px-4 pb-4">
           <nav className="flex flex-col space-y-3 text-[#F3F4F6]">
             <Link href="/" className="hover:text-[#60A5FA] transition">Home</Link>
-            <Link href="/about" className="hover:text-[#60A5FA] transition">About</Link>
-            <Link href="/books" className="hover:text-[#60A5FA] transition">Books</Link>
+            <Link href="#about" className="hover:text-[#60A5FA] transition">About</Link>
+            <Link href="#books" className="hover:text-[#60A5FA] transition">Books</Link>
             <Link href="/contact" className="hover:text-[#60A5FA] transition">Contact</Link>
           </nav>
         </div>

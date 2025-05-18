@@ -12,10 +12,10 @@ const Hero = () => {
             Book Lab is your trusted space to explore books, write reviews, and dive deeper into your favorite reads. Join a community of curious minds.
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-            <a href="/books" className="bg-[#1E2A38] text-white px-6 py-3 rounded-xl hover:bg-[#374151] transition">
+            <a href="#books" className="bg-[#1E2A38] text-white px-6 py-3 rounded-xl hover:bg-[#374151] transition">
               Browse Books
             </a>
-            <a href="/join" className="border border-[#1E2A38] px-6 py-3 rounded-xl hover:bg-[#1E2A38] hover:text-white transition">
+            <a href="/" className="border border-[#1E2A38] px-6 py-3 rounded-xl hover:bg-[#1E2A38] hover:text-white transition">
               Join Community
             </a>
           </div>
