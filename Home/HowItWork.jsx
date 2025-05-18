@@ -23,7 +23,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="bg-[#F3F4F6] py-5 md:py-20 px-4 text-[#1E2A38]">
+    <section className="bg-[#F3F4F6] py-5 md:py-20 px-4 text-[#1E2A38] " id="about">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">How Book Lab Works</h2>
         <p className="text-[#374151] mb-12 max-w-2xl mx-auto">

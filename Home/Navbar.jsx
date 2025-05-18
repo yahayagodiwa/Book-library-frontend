@@ -17,8 +17,8 @@ const Navbar = () => {
         {/* Desktop Links */}
         <nav className="hidden md:flex space-x-6 text-[#F3F4F6]">
           <Link href="/" className="hover:text-[#60A5FA] transition">Home</Link>
-          <Link href="/about" className="hover:text-[#60A5FA] transition">About</Link>
-          <Link href="/books" className="hover:text-[#60A5FA] transition">Books</Link>
+          <Link href="#about" className="hover:text-[#60A5FA] transition">About</Link>
+          <Link href="#books" className="hover:text-[#60A5FA] transition">Books</Link>
           <Link href="/contact" className="hover:text-[#60A5FA] transition">Contact</Link>
         </nav>
 

@@ -24,7 +24,7 @@ const ExploreLibrary = () => {
   ];
 
   return (
-    <section className="bg-white py-20 px-4 text-[#1E2A38]">
+    <section className="bg-white py-20 px-4 text-[#1E2A38]" id="books">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Explore the Library</h2>
         <p className="text-[#374151] mb-10 max-w-2xl mx-auto">
