@@ -8,7 +8,7 @@ const useAuthStore = create((set, get)=>({
     url: "https://book-library-94kz.onrender.com/",
     user: null,
     books: null,
-    // token: localStorage.getItem('token')
+    token: localStorage.getItem('token'),
 
     setUser: (user)=> set({user}),
     setBooks: (books)=> set({books}),

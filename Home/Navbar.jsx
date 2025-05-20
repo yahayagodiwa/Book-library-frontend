@@ -9,7 +9,7 @@ const Navbar = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <header className="bg-[#1E2A38] text-[#F3F4F6] shadow-md">
+    <header className="bg-[#1E2A38] text-[#F3F4F6] shadow-md fixed w-[100vw] z-40">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <h1 className="text-2xl font-bold text-[#FBBF24]">P-Lab</h1>
@@ -34,8 +34,8 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[#1E2A38] px-4 pb-4">
-          <nav className="flex flex-col space-y-3 text-[#F3F4F6]">
+        <div className="md:hidden  bg-[#1E2A38] px-4 pb-4">
+          <nav className="flex flex-col text-center space-y-3 text-[#F3F4F6]">
             <Link href="/" className="hover:text-[#60A5FA] transition">Home</Link>
             <Link href="#about" className="hover:text-[#60A5FA] transition">About</Link>
             <Link href="#books" className="hover:text-[#60A5FA] transition">Books</Link>

@@ -11,11 +11,12 @@ import GenreD from '@/app/components/categories/GenreData';
 import BookSearchFilter from '@/app/components/categories/Search';
 import Footer from '../../../../Home/Footer';
 import BlogSnippet from '@/app/components/Blog/Posts';
+import Link from 'next/link';
 
 const Page = () => {
   const { books, fetchBooks } = useAuthStore();
-  console.log(books);
   
+
 
   useEffect(() => {
    if(!books){
@@ -57,13 +58,14 @@ const Page = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-[#F3F4F6]">
+    <>
       <Navbar />
+    <section className="min-h-screen relative bg-[#F3F4F6] overflow-x-hidden pt-16">
 
       {/* Hero Carousel */}
       <Slider {...settings}>
   {heroContent.map((slide, i) => (
-    <div className="relative h-64 w-full">
+    <div className="relative h-80 w-full md:pt-10">
   <img src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover" />
   <div className="absolute inset-0 bg-black/50 z-0"></div>
   <div className="relative z-10 p-10 text-white text-center">
@@ -81,12 +83,14 @@ const Page = () => {
         <h2 className="text-2xl md:text-3xl font-bold text-[#1E2A38] mb-6">
           Recent Books
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6" 
+        >
           {books?.slice(0, 8).map((book) => (
             <div
               key={book._id}
+              
               className="bg-white rounded-lg p-3 shadow hover:shadow-lg transition w-full"
-            >
+            > <Link href={`/single-book/${book._id}`}>
               <div className=" aspect-[3/4] w-full bg-gray-100 rounded overflow-hidden mb-3">
                 <img
                   src={book.bookCover}
@@ -98,6 +102,7 @@ const Page = () => {
                 {book.title}
               </h3>
               <p className="text-sm text-gray-500">{book.author.username}</p>
+              </Link>
             </div>
           ))}
         </div>
@@ -111,6 +116,7 @@ const Page = () => {
 
       <Footer />
     </section>
+    </>
   );
 };
 

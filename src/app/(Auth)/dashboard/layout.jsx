@@ -4,13 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react"; // for hamburger icon
 import clsx from "clsx";
+import { MdSpaceDashboard } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
+import { FaBookOpenReader } from "react-icons/fa6";
+import { IoSettings } from "react-icons/io5";
 
 const navLinks = [
-  { label: "Dashboard", href: "/dashboard", icon: "📊" },
-  { label: "Profile", href: "/dashboard/profile", icon: "👤" },
-  { label: "My Books", href: "/dashboard/books", icon: "📚" },
+  { label: "Dashboard", href: "/dashboard", icon: <MdSpaceDashboard size={30}/> },
+  { label: "Profile", href: "/dashboard/profile", icon: <FaUser size={30}/> },
+  { label: "My Books", href: "/dashboard/books", icon: <FaBookOpenReader size={30}/> },
   { label: "Fines", href: "/dashboard/fines", icon: "💰" },
-  { label: "Settings", href: "/dashboard/settings", icon: "⚙️" },
+  { label: "Settings", href: "/dashboard/settings", icon: <IoSettings size={30}/> },
   { label: "Logout", href: "/", icon: "🚪" },
 ];
 
