@@ -59,6 +59,7 @@ const  BorrowModal = ({id}) => {
         Reason:
         <textarea
           type="text"
+          required
           placeholder="What are you borrowing for"
           name="borrowNote"
           onChange={handleChange}
@@ -71,6 +72,7 @@ const  BorrowModal = ({id}) => {
           type="date"
           placeholder="Return data"
           name="returnDate"
+          required
           onChange={handleChange}
           className="px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#60A5FA] transition"
         />

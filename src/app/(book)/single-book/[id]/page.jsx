@@ -22,7 +22,7 @@ export default function SingleBookPage() {
     const [reviews,  setReviews] = useState()
     const [modalOpen, setModalOpen] = useState(false)
 
-// console.log(token);
+console.log(token);
 
   ///////////------------------------ Get all books ------------------------///////////
 
@@ -33,6 +33,31 @@ export default function SingleBookPage() {
     }, [])
 
 const recentBooks = books?.filter(book => book.category === book.category)
+
+
+///////////------------------------ Like book ------------------------///////////
+
+  const likeBook = async ()=>{
+
+ try {
+    const res = await axios.post(`${url}book/like/${id}`,   {}, {
+    
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = res.data;
+    console.log(data);
+    toast.success(data.message);
+  } catch (error) {
+    const errorMsg = error.response?.data?.error || "Something went wrong";
+    toast.error(errorMsg);
+    console.error(error);
+  } 
+
+}
 
   ///////////------------------------ Get single book ------------------------///////////
     
@@ -52,9 +77,7 @@ const recentBooks = books?.filter(book => book.category === book.category)
         getBook(
 
         )
-    },[])
-
-  ///////////------------------------ Borrow book ------------------------///////////
+    },[likeBook])
 
   
 
@@ -80,12 +103,14 @@ const recentBooks = books?.filter(book => book.category === book.category)
            {book?.description}
           </p>
 
-          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition cursor-pointer"
           onClick={()=>setModalOpen(true)}
           >
             Borrow Book
           </button>
-          <div className="flex gap-4 my-4"><AiOutlineLike size={20}/> <span>{book?.likes} Likes</span></div>
+          <div className="flex gap-4 my-4"><AiOutlineLike size={20} onClick={likeBook} 
+          className="cursor-pointer"/> <span>{book?.likes} Likes</span>
+          </div>
         </div>
       </div>
 

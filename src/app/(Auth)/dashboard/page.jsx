@@ -25,6 +25,8 @@ export default function DashboardPage() {
   });
 
   return (
+    <>
+   
     <div className="space-y-6 overflow-y-auto">
       <div className=" rounded-xl p-6">
         <h2 className="text-2xl font-semibold text-gray-800">
@@ -57,17 +59,17 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent Books */}
-      <div className=" rounded-xl p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-800">
+      <div className=" rounded-md shadow-lg ">
+        <div className="flex items-center justify-between py-4">
+          <h3 className="text-lg font-semibold text-gray-800 ">
             Recently Borrowed Books
           </h3>
           <button className="text-blue-600 hover:underline">View All</button>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full table-auto">
-            <thead>
-              <tr className="text-left text-sm border-b text-gray-500">
+          <table className="w-full mt-6 text-left text-sm bg-white shadow  overflow-hidden">
+            <thead className="bg-[#1E2A38] text-white">
+              <tr >
                 <th className="py-2 px-4">Title</th>
                 <th className="py-2 px-4">Author</th>
                 <th className="py-2 px-4">Borrowed</th>
@@ -107,5 +109,6 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
