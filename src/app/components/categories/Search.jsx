@@ -1,56 +1,57 @@
 import { useState } from "react";
 
 const genres = [
-      "General",
-      "Fiction",
-      "Non-Fiction",
-      "Biography",
-      "Autobiography",
-      "Science Fiction",
-      "Fantasy",
-      "Mystery",
-      "Thriller",
-      "Romance",
-      "Historical Fiction",
-      "Horror",
-      "Self-Help",
-      "Health & Wellness",
-      "Travel",
-      "Science",
-      "Technology",
-      "Philosophy",
-      "Psychology",
-      "Religion & Spirituality",
-      "Business & Economics",
-      "Politics",
-      "Education",
-      "Art & Photography",
-      "Comics & Graphic Novels",
-      "Poetry",
-      "Young Adult",
-      "Children's Books",
-      "Cooking",
-      "Law",
-      "Sports & Outdoors",
-      "Parenting",
-      "Crafts & Hobbies",
-      "True Crime",
-      "Memoir",
-    ]
-
-
+  "All Genres",
+  "General",
+  "Fiction",
+  "Non-Fiction",
+  "Biography",
+  "Autobiography",
+  "Science Fiction",
+  "Fantasy",
+  "Mystery",
+  "Thriller",
+  "Romance",
+  "Historical Fiction",
+  "Horror",
+  "Self-Help",
+  "Health & Wellness",
+  "Travel",
+  "Science",
+  "Technology",
+  "Philosophy",
+  "Psychology",
+  "Religion & Spirituality",
+  "Business & Economics",
+  "Politics",
+  "Education",
+  "Art & Photography",
+  "Comics & Graphic Novels",
+  "Poetry",
+  "Young Adult",
+  "Children's Books",
+  "Cooking",
+  "Law",
+  "Sports & Outdoors",
+  "Parenting",
+  "Crafts & Hobbies",
+  "True Crime",
+  "Memoir",
+];
 
 export default function BookSearchFilter({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("All Genres");
+  const [isbn, setIsbn] = useState("");
   const [year, setYear] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const filters = {
-      searchTerm,
-      genre: selectedGenre === "All Genres" ? null : selectedGenre,
-      year: year || null,
+      searchTerm: searchTerm.trim() || null,
+      category: selectedGenre === "All Genres" ? null : selectedGenre,
+      isbn: isbn.trim() || null,
+      year: year.trim() || null,
     };
     onSearch(filters); // Call parent filter function
   };
@@ -58,7 +59,7 @@ export default function BookSearchFilter({ onSearch }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className=" p-4 rounded-md grid grid-cols-1 md:grid-cols-4 gap-4"
+      className="p-4 rounded-md grid grid-cols-1 md:grid-cols-4 gap-4"
     >
       <input
         type="text"
@@ -80,11 +81,17 @@ export default function BookSearchFilter({ onSearch }) {
         ))}
       </select>
 
-      
+      <input
+        type="text"
+        placeholder="ISBN"
+        value={isbn}
+        onChange={(e) => setIsbn(e.target.value)}
+        className="border rounded px-3 py-2 w-full"
+      />
 
       <input
-        type="number"
-        placeholder="Year (e.g. 2022)"
+        type="text"
+        placeholder="Publication Year"
         value={year}
         onChange={(e) => setYear(e.target.value)}
         className="border rounded px-3 py-2 w-full"
@@ -92,7 +99,7 @@ export default function BookSearchFilter({ onSearch }) {
 
       <button
         type="submit"
-        className="md:col-span-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
       >
         Search Books
       </button>
