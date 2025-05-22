@@ -1,15 +1,13 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../../../Home/Navbar';
-import useAuthStore from '../../../../store';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import GenreSlider from '@/app/components/categories/Genre';
-import GenreD from '@/app/components/categories/GenreData';
 import Footer from '../../../../Home/Footer';
-import BlogSnippet from '@/app/components/Blog/Posts';
 import Link from 'next/link';
+import BookSearchFilter from '@/app/components/categories/Search';
+import useAuthStore from '../../../../store';
 
 const Page = () => {
   const { books, fetchBooks } = useAuthStore();
@@ -20,8 +18,9 @@ const Page = () => {
    if(!books){
     fetchBooks()
    }
-  }, []);
+  }, [books]);
 
+  console.log(books);
   
 
   const settings = {
@@ -61,7 +60,7 @@ const Page = () => {
     <section className="min-h-screen relative bg-[#F3F4F6] overflow-x-hidden pt-16">
 
       {/* Hero Carousel */}
-      <Slider {...settings}>
+      {/* <Slider {...settings}>
   {heroContent.map((slide, i) => (
     <div className="relative h-80 w-full md:pt-10">
   <img src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover" />
@@ -73,17 +72,19 @@ const Page = () => {
 </div>
 
   ))}
-</Slider>
+</Slider> */}
 
 
       {/* Book Sections */}
       <div className="px-4 py-10 max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-[#1E2A38] mb-6">
-          Recent Books
+           Books
         </h2>
+       <BookSearchFilter />
+
         <div className="grid grid-cols-2 md:grid-cols-6 gap-6" 
         >
-          {books?.slice(0, 18).map((book) => (
+          {books?.map((book) => (
             <div
               key={book._id}
               
@@ -105,12 +106,9 @@ const Page = () => {
           ))}
         </div>
 
-       <GenreSlider />
-
-       <GenreD />
-       {/* <BookSearchFilter /> */}
+      
       </div>
-      <BlogSnippet />
+      
 
       <Footer />
     </section>

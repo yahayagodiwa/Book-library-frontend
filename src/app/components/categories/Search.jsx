@@ -1,32 +1,48 @@
 import { useState } from "react";
 
 const genres = [
-  "All Genres",
-  "Science",
-  "Technology",
-  "Literature",
-  "Medicine",
-  "Law",
-  "Mathematics",
-  "Engineering",
-  "Arts",
-];
+      "General",
+      "Fiction",
+      "Non-Fiction",
+      "Biography",
+      "Autobiography",
+      "Science Fiction",
+      "Fantasy",
+      "Mystery",
+      "Thriller",
+      "Romance",
+      "Historical Fiction",
+      "Horror",
+      "Self-Help",
+      "Health & Wellness",
+      "Travel",
+      "Science",
+      "Technology",
+      "Philosophy",
+      "Psychology",
+      "Religion & Spirituality",
+      "Business & Economics",
+      "Politics",
+      "Education",
+      "Art & Photography",
+      "Comics & Graphic Novels",
+      "Poetry",
+      "Young Adult",
+      "Children's Books",
+      "Cooking",
+      "Law",
+      "Sports & Outdoors",
+      "Parenting",
+      "Crafts & Hobbies",
+      "True Crime",
+      "Memoir",
+    ]
 
-const departments = [
-  "All Departments",
-  "Computer Science",
-  "Physics",
-  "English",
-  "Law",
-  "Biology",
-  "Economics",
-  "History",
-];
+
 
 export default function BookSearchFilter({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("All Genres");
-  const [selectedDept, setSelectedDept] = useState("All Departments");
   const [year, setYear] = useState("");
 
   const handleSubmit = (e) => {
@@ -34,7 +50,6 @@ export default function BookSearchFilter({ onSearch }) {
     const filters = {
       searchTerm,
       genre: selectedGenre === "All Genres" ? null : selectedGenre,
-      department: selectedDept === "All Departments" ? null : selectedDept,
       year: year || null,
     };
     onSearch(filters); // Call parent filter function
@@ -43,7 +58,7 @@ export default function BookSearchFilter({ onSearch }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white shadow p-4 rounded-md grid grid-cols-1 md:grid-cols-4 gap-4"
+      className=" p-4 rounded-md grid grid-cols-1 md:grid-cols-4 gap-4"
     >
       <input
         type="text"
@@ -65,17 +80,7 @@ export default function BookSearchFilter({ onSearch }) {
         ))}
       </select>
 
-      <select
-        value={selectedDept}
-        onChange={(e) => setSelectedDept(e.target.value)}
-        className="border rounded px-3 py-2 w-full"
-      >
-        {departments.map((dept) => (
-          <option key={dept} value={dept}>
-            {dept}
-          </option>
-        ))}
-      </select>
+      
 
       <input
         type="number"
