@@ -119,7 +119,7 @@ export default function SingleBookPage() {
           </h3>
           {reviews?.map((review) => (
             <div key={review.id} className="mb-6 pb-4">
-              <p className="font-semibold">{review.name}</p>
+              <p className="font-semibold py-2">{review.reviewAuthor.username}</p>
               <div className="flex items-center mb-1 text-yellow-500">
                 {[...Array(5)].map((_, i) => (
                   <FaStar

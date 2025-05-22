@@ -5,14 +5,17 @@ import React, { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import useAuthStore from '../../../store'
 import { FaStar } from 'react-icons/fa'
+import { useRouter } from 'next/navigation'
 
 const  BookReview = ({id}) => {
     const [loading, setLoading] = useState(false)
-    const {url, token} = useAuthStore()
+    const {url, token, fetchBooks} = useAuthStore()
     const [ratings, setRatings] = useState(0)
     const [comment, setComment] = useState('')
+    const router = useRouter()
 
     const maxRating = 5
+// console.log(id);
 
 
     const handleSubmit = async (e) => {
@@ -36,6 +39,10 @@ const  BookReview = ({id}) => {
     const data = res.data;
     console.log(data);
     toast.success(data.message);
+    fetchBooks()
+    // router.refresh()
+    setComment('')
+    setRatings(0)
   } catch (error) {
     const errorMsg = error.response?.data?.error || "Something went wrong";
     toast.error(errorMsg);
