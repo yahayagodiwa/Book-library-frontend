@@ -1,43 +1,46 @@
+// store.js
 import axios from "axios";
+import { create } from "zustand";
 
+const useAuthStore = create((set, get) => ({
+  url: "https://book-library-94kz.onrender.com/",
+  user: null,
+  books: null,
+  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
 
-const { create } = require("zustand");
+  setUser: (user) => set({ user }),
+  setBooks: (books) => set({ books }),
 
+  getUser: async () => {
+    const { url } = get();
+    try {
+      const res = await axios.get(`${url}user/dashboard`, {
+        headers: {
+          Authorization: `Bearer ${
+            typeof window !== "undefined" ? localStorage.getItem("token") : null
+          }`,
+        },
+      });
+      const data = res.data;
+      set({ user: data.user });
+    } catch (error) {
+      console.error("Failed to fetch user:", error);
+    }
+  },
 
-const useAuthStore = create((set, get)=>({
-    url: "https://book-library-94kz.onrender.com/",
-    user: null,
-    books: null,
-    token: localStorage.getItem('token'),
-
-    setUser: (user)=> set({user}),
-    setBooks: (books)=> set({books}),
-
-
-    getUser: async ()=>{
-        const {url}= get()
-        const res = await axios.get(`${url}user/dashboard`, {headers : {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }})
-        const data = res.data
-        // console.log(data.user);
-            set({user: data.user})
-    },
-////---------------------------- Due books ----------------------------- ////////////
-
-fetchBooks: async () => {
-    const {url} = get()
+  fetchBooks: async () => {
+    const { url } = get();
+    try {
       const res = await axios.get(`${url}book/all-book`);
       const data = res.data.books;
-      set({books: data});
+      set({ books: data });
       console.log(data);
-      
-      
-    },
+    } catch (error) {
+      console.error("Failed to fetch books:", error);
+    }
+  },
 
-////---------------------------- Due books ----------------------------- ////////////
-
-   getDueBooks: () => {
+  getDueBooks: () => {
     const { user } = get();
     const today = new Date();
 
@@ -48,7 +51,6 @@ fetchBooks: async () => {
       return returnDate < today && !borrow.returned;
     });
   },
+}));
 
-}))
-
-export default useAuthStore
+export default useAuthStore;
