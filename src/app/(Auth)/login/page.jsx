@@ -32,7 +32,7 @@ const page = () => {
         setLoading(true);
         try {
           const response = await axios.post(`${url}user/login`, formData);
-          console.log(response);
+          // console.log(response);
           
           if (response.status === 200) {
             const data = response.data

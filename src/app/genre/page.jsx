@@ -59,7 +59,7 @@ const page = () => {
           Books in {category}
         </h2>
 
-        <h3 className='text-xl text-center font-semibold text-red-500'>{error}</h3>
+        <h3 className='text-xl text-center font-semibold text-red-500 pb-16 py-6'>{error}</h3>
         <div className="grid grid-cols-2 md:grid-cols-6 gap-6" 
         >
           {books?.map((book) => (

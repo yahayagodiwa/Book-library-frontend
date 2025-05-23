@@ -2,20 +2,33 @@
 
 import { useEffect, useMemo } from "react";
 import useAuthStore from "../../../../store";
+import Link from "next/link";
+// import Image from "next/image";
 
 export default function DashboardPage() {
-  const { user, getUser } = useAuthStore();
+  const { user, getUser, books, fetchBooks } = useAuthStore();
   useEffect(() => {
     if (!user) {
       getUser();
     }
-  }, []);
+  }, [user]);
+
+  useEffect(()=>{
+    if(!books){
+      fetchBooks()
+    }
+  },[books])
+
  const dueBooks = useMemo(() => {
     return useAuthStore.getState().getDueBooks();
   }, [user]); 
 
   
-  console.log(user);
+  // console.log(user);
+
+ const mostLiked = books?.slice().sort((a, b) => b.likes - a.likes);
+console.log(mostLiked);
+
  
   // console.log(dueBooks);
   let totalFine = 0;
@@ -62,51 +75,29 @@ export default function DashboardPage() {
       <div className=" rounded-md shadow-lg ">
         <div className="flex items-center justify-between py-4">
           <h3 className="text-lg font-semibold text-gray-800 ">
-            Recently Borrowed Books
+            Most Popular Books
           </h3>
-          <button className="text-blue-600 hover:underline">View All</button>
+        <Link href='/books'> <button className="text-blue-600 hover:underline cursor-pointer">View All</button></Link>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full mt-6 text-left text-sm bg-white shadow  overflow-hidden">
-            <thead className="bg-[#1E2A38] text-white">
-              <tr >
-                <th className="py-2 px-4">Title</th>
-                <th className="py-2 px-4">Author</th>
-                <th className="py-2 px-4">Borrowed</th>
-                <th className="py-2 px-4">Due Date</th>
-              </tr>
-            </thead>
-            <tbody className="text-sm text-gray-700">
-              {[
-                {
-                  title: "The Great Gatsby",
-                  author: "F. Scott Fitzgerald",
-                  borrowed: "May 10",
-                  due: "May 20",
-                },
-                {
-                  title: "1984",
-                  author: "George Orwell",
-                  borrowed: "May 5",
-                  due: "May 15",
-                },
-                {
-                  title: "Atomic Habits",
-                  author: "James Clear",
-                  borrowed: "May 3",
-                  due: "May 13",
-                },
-              ].map((book, idx) => (
-                <tr key={idx} className=" hover:bg-gray-50 transition">
-                  <td className="py-2 px-4">{book.title}</td>
-                  <td className="py-2 px-4">{book.author}</td>
-                  <td className="py-2 px-4">{book.borrowed}</td>
-                  <td className="py-2 px-4">{book.due}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-6 p-4 mb-10">
+  {mostLiked?.slice(0, 6).map((book, i) => (
+    <Link href={`/single-book/${book._id}`} key={i}>
+    <div
+      
+      className="rounded-xl transition-shadow duration-300 overflow-hidden flex flex-col items-center text-center p-4"
+    >
+      <img
+        src={book.bookCover}
+        alt="book cover"
+        className="w-full max-h-90 rounded-md mb-4"
+      />
+      <h3 className="text-lg font-semibold text-gray-800 mb-1">{book.title}</h3>
+      <p className="text-sm text-gray-600">{book.author?.username || 'Unknown Author'}</p>
+    </div>
+    </Link>
+  ))}
+</div>
+
       </div>
     </div>
     </>
