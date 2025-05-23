@@ -1,10 +1,16 @@
 "use client";
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import useAuthStore from '../store';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const {user, getUser} = useAuthStore()
+  useEffect(()=>{
+    getUser()
+  },[])
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -20,10 +26,10 @@ const Navbar = () => {
           <Link href="/about-us" className="hover:text-[#60A5FA] transition">About</Link>
           <Link href="/books" className="hover:text-[#60A5FA] transition">Books</Link>
           <Link href="#" className="hover:text-[#60A5FA] transition">Contact</Link>
-          <div className='flex gap-4 items-center'>
+           {user ? <Link href='/dashboard' className='bg-[#60A5FA] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition'>Dashboard</Link> : <div className='flex gap-4 items-center'>
           <Link href="/login" className="bg-[#FBBF24] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition">Login</Link>
           <Link href="register" className="bg-[#60A5FA] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition">Sign Up</Link>
-          </div>
+          </div>}
         </nav>
 
         {/* Mobile menu button */}
@@ -44,10 +50,10 @@ const Navbar = () => {
             <Link href="/about-us" className="hover:text-[#60A5FA] transition">About</Link>
             <Link href="/books" className="hover:text-[#60A5FA] transition">Books</Link>
             <Link href="#" className="hover:text-[#60A5FA] transition">Contact</Link>
-             <div className='flex flex-col gap-4 items-center'>
+             {user ? <Link href='/dashboard' className='bg-[#60A5FA] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition'>Dashboard</Link> : <div className='flex flex-col gap-4 items-center'>
           <Link href="/login" className="bg-[#FBBF24] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition">Login</Link>
           <Link href="register" className="bg-[#60A5FA] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition">Sign Up</Link>
-          </div>
+          </div>}
           </nav>
         </div>
       )}
