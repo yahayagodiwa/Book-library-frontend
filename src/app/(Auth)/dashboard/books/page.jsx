@@ -66,7 +66,7 @@ console.log(user);
             <tbody className="text-sm text-gray-700">
               {user?.borrows?.map((bk, idx) => (
                 <tr key={idx} className="hover:bg-gray-50 transition">
-                  <td className="py-2 px-4">{bk.book.title}</td>
+                  <td className="py-2 px-4">{bk.book?.title}</td>
                   <td className="py-2 px-4">{new Date(bk.borrowDate).toLocaleDateString()}</td>
                   <td className="py-2 px-4">{new Date(bk.returnDate).toLocaleDateString()}</td>
                   <td className={`py-2 px-4 ${bk.returned ? "text-blue-600" : "text-red-600"}`}>
