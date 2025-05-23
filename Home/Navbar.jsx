@@ -17,9 +17,13 @@ const Navbar = () => {
         {/* Desktop Links */}
         <nav className="hidden md:flex space-x-6 text-[#F3F4F6]">
           <Link href="/" className="hover:text-[#60A5FA] transition">Home</Link>
-          <Link href="#about" className="hover:text-[#60A5FA] transition">About</Link>
-          <Link href="#books" className="hover:text-[#60A5FA] transition">Books</Link>
-          <Link href="/contact" className="hover:text-[#60A5FA] transition">Contact</Link>
+          <Link href="/about-us" className="hover:text-[#60A5FA] transition">About</Link>
+          <Link href="/books" className="hover:text-[#60A5FA] transition">Books</Link>
+          <Link href="#" className="hover:text-[#60A5FA] transition">Contact</Link>
+          <div className='flex gap-4 items-center'>
+          <Link href="/login" className="bg-[#FBBF24] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition">Login</Link>
+          <Link href="register" className="bg-[#60A5FA] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition">Sign Up</Link>
+          </div>
         </nav>
 
         {/* Mobile menu button */}
@@ -37,9 +41,13 @@ const Navbar = () => {
         <div className="md:hidden  bg-[#1E2A38] px-4 pb-4">
           <nav className="flex flex-col text-center space-y-3 text-[#F3F4F6]">
             <Link href="/" className="hover:text-[#60A5FA] transition">Home</Link>
-            <Link href="#about" className="hover:text-[#60A5FA] transition">About</Link>
-            <Link href="#books" className="hover:text-[#60A5FA] transition">Books</Link>
-            <Link href="/contact" className="hover:text-[#60A5FA] transition">Contact</Link>
+            <Link href="/about-us" className="hover:text-[#60A5FA] transition">About</Link>
+            <Link href="/books" className="hover:text-[#60A5FA] transition">Books</Link>
+            <Link href="#" className="hover:text-[#60A5FA] transition">Contact</Link>
+             <div className='flex flex-col gap-4 items-center'>
+          <Link href="/login" className="bg-[#FBBF24] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition">Login</Link>
+          <Link href="register" className="bg-[#60A5FA] px-3 py-1 rounded-2xl hover:text-[#1E2A38] transition">Sign Up</Link>
+          </div>
           </nav>
         </div>
       )}

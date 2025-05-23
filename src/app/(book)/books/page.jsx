@@ -8,10 +8,12 @@ import Footer from "../../../../Home/Footer";
 import Link from "next/link";
 import BookSearchFilter from "@/app/components/categories/Search";
 import useAuthStore from "../../../../store";
+import GenreSlider from "@/app/components/categories/Genre";
 
 const Page = () => {
   const { books, fetchBooks } = useAuthStore();
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [isOpen, setIsOpen] = useState(false)
   console.log(books);
   
 
@@ -63,6 +65,16 @@ const Page = () => {
     setFilteredBooks(result);
   };
 
+  const filterGenre = (gen) => {
+  const filtered = books?.filter((book) =>
+    book.category?.toLowerCase() === gen.toLowerCase()
+  );
+  setFilteredBooks(filtered);
+};
+
+  const handleToggle = ()=>{
+    setIsOpen(prev => !prev)
+  }
 //   const settings = {
 //     dots: true,
 //     infinite: true,
@@ -119,11 +131,18 @@ const Page = () => {
         </Slider> */}
 
         {/* Book Sections */}
-        <div className="px-4 py-10 max-w-7xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#1E2A38] mb-6">
-            Books
-          </h2>
-          <BookSearchFilter onSearch={handleSearch} />
+        <div className="px-4 py-10  mx-auto">
+            <div className="flex justify-between items-center text-blue-700 mr-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#1E2A38] mb-6">  Books  </h2>
+            <button onClick={handleToggle} className="text-xl cursor-pointer">Filter</button>
+            </div>
+            <GenreSlider onFilter={filterGenre}/>
+          
+         
+        
+          <BookSearchFilter onSearch={handleSearch} isOpen={isOpen}/>
+
+        
 
           <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
             {filteredBooks.length > 0 ? (

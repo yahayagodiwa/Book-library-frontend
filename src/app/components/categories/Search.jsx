@@ -39,7 +39,7 @@ const genres = [
   "Memoir",
 ];
 
-export default function BookSearchFilter({ onSearch }) {
+export default function BookSearchFilter({ onSearch, isOpen }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("All Genres");
   const [isbn, setIsbn] = useState("");
@@ -59,7 +59,7 @@ export default function BookSearchFilter({ onSearch }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-4 rounded-md grid grid-cols-1 md:grid-cols-4 gap-4"
+      className={`${isOpen ? "flex" : "hidden"} w-[90vw] justify-center transition-all duration-300 p-4 max-w-7xl mx-auto rounded-md grid grid-cols-1 md:grid-cols-5 gap-4`}
     >
       <input
         type="text"
@@ -99,7 +99,7 @@ export default function BookSearchFilter({ onSearch }) {
 
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer transition"
       >
         Search Books
       </button>

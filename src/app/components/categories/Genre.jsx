@@ -2,15 +2,45 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const genres = [
-  "Science", "Engineering", "Technology", "Medicine", "Law",
-  "Mathematics", "Arts", "Social Sciences", "Agriculture", "Education",
-  "Management Sciences", "Environmental Studies", "Health Sciences", "History",
-  "Literature", "Biographies", "Fiction", "Philosophy", "Religious Studies",
-  "Political Science", "Economics", "Psychology", "Sociology", "Linguistics",
-  "Computer Science",
-];
+      "General",
+      "Fiction",
+      "Non-Fiction",
+      "Biography",
+      "Autobiography",
+      "Science Fiction",
+      "Fantasy",
+      "Mystery",
+      "Thriller",
+      "Romance",
+      "Historical Fiction",
+      "Horror",
+      "Self-Help",
+      "Health & Wellness",
+      "Travel",
+      "Science",
+      "Technology",
+      "Philosophy",
+      "Psychology",
+      "Religion & Spirituality",
+      "Business & Economics",
+      "Politics",
+      "Education",
+      "Art & Photography",
+      "Comics & Graphic Novels",
+      "Poetry",
+      "Young Adult",
+      "Children's Books",
+      "Cooking",
+      "Law",
+      "Sports & Outdoors",
+      "Parenting",
+      "Crafts & Hobbies",
+      "True Crime",
+      "Memoir",
+    ]
 
 // Custom Arrow Components
 const PrevArrow = (props) => {
@@ -69,16 +99,26 @@ const sliderSettings = {
   ],
 };
 
-function GenreSlider() {
+function GenreSlider({onFilter}) {
+  const [value, setValue] = useState()
+  // console.log(value);
+
+  useEffect(() => {
+  if (value) {
+    onFilter(value);
+  }
+}, [value]);
+
+  
   return (
-    <div className="mt-12 relative">
-      <h2 className="text-2xl md:text-3xl font-bold text-[#1E2A38] mb-4">
-        Explore by Genre
-      </h2>
+    <div className="my-12 relative w-[90%] mx-auto">
+      
       <Slider {...sliderSettings}>
         {genres.map((genre) => (
           <div key={genre} className="px-2">
-            <button className="bg-[#60A5FA] text-white w-full px-4 py-2 rounded-full hover:bg-blue-500 transition whitespace-nowrap">
+            <button className="bg-[#60A5FA] text-white w-full px-4 py-2 rounded-full
+             hover:bg-blue-500 transition whitespace-nowrap"
+             onClick={(e)=>setValue(genre)}>
               {genre}
             </button>
           </div>

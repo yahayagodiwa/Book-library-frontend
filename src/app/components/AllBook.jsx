@@ -1,17 +1,17 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../../../Home/Navbar';
-import useAuthStore from '../../../../store';
+import Navbar from '../../../Home/Navbar';
+import useAuthStore from '../../../store';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import GenreSlider from '@/app/components/categories/Genre';
 import GenreD from '@/app/components/categories/GenreData';
-import Footer from '../../../../Home/Footer';
+import Footer from '../../../Home/Footer';
 import BlogSnippet from '@/app/components/Blog/Posts';
 import Link from 'next/link';
 
-const Page = () => {
+const Allbook = () => {
   const { books, fetchBooks } = useAuthStore();
   
 
@@ -104,11 +104,16 @@ const Page = () => {
             </div>
           ))}
         </div>
+           <div className="text-center mt-6">
+       <Link href='/books'> <button className="bg-[#60A5FA] cursor-pointer text-white px-6 py-2 rounded-full hover:bg-blue-500 transition">
+          View All Books
+        </button></Link>
+      </div>
 
-       <GenreSlider />
+       {/* <GenreSlider /> */}
 
        <GenreD />
-       {/* <BookSearchFilter /> */}
+      
       </div>
       <BlogSnippet />
 
@@ -118,4 +123,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Allbook;
