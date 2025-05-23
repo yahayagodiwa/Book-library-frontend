@@ -145,8 +145,8 @@ const Page = () => {
         
 
           <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
-            {filteredBooks.length > 0 ? (
-              filteredBooks.map((book) => (
+            {filteredBooks?.length > 0 ? (
+              filteredBooks?.map((book) => (
                 <div
                   key={book._id}
                   className="bg-white rounded-lg p-3 shadow hover:shadow-lg transition w-full"

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const genreData = [
   { name: "Fiction", image: "/images/fiction.jpg" },
   { name: "Romance", image: "/images/romance.jpg" },
@@ -22,8 +24,9 @@ const genreData = [
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {genreData.map((genre) => (
+          <Link href={`/genre?category=${genre.name}`}  key={genre.name}>
           <div
-            key={genre.name}
+           
             className="rounded-xl overflow-hidden hover:shadow-lg transition duration-300 bg-white"
           >
             <img
@@ -35,14 +38,15 @@ const genreData = [
               {genre.name}
             </div>
           </div>
+          </Link>
         ))}
       </div>
 
-      <div className="text-center mt-6">
+      {/* <div className="text-center mt-6">
         <button className="bg-[#60A5FA] text-white px-6 py-2 rounded-full hover:bg-blue-500 transition">
           View All Genres
         </button>
-      </div>
+      </div> */}
     </section>
   );
 }

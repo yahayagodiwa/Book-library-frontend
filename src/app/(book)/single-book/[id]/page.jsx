@@ -138,7 +138,7 @@ export default function SingleBookPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-[#1E2A38] mb-6">
             Related Books
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
             {recentBooks?.slice(0, 8).map((book) => (
               <div
                 key={book._id}
