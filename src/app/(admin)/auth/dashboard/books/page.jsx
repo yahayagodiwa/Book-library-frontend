@@ -1,83 +1,49 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+import useAuthStore from "../../../../../../store";
+import Link from "next/link";
+import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
-const books = [
-  {
-    title: "The Secret Garden",
-    author: "Frances Bennett",
-    isbn: "978-0140620070",
-    genre: "Children’s Literature",
-    date: "1911-01-01",
-  },
-  {
-    title: "Pride and Prejudice",
-    author: "Jane Austen",
-    isbn: "978-0141439518",
-    genre: "Classic Literature",
-    date: "1813-01-28",
-  },
-  {
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    isbn: "978-0061120084",
-    genre: "Southern Gothic",
-    date: "1960-07-11",
-  },
-  {
-    title: "1984",
-    author: "George Orwell",
-    isbn: "978-0451524935",
-    genre: "Dystopian Fiction",
-    date: "1949-06-08",
-  },
-  {
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    isbn: "978-0743273565",
-    genre: "Jazz Age",
-    date: "1925-04-10",
-  },
-  {
-    title: "Moby Dick",
-    author: "Herman Melville",
-    isbn: "978-0142437247",
-    genre: "Adventure Fiction",
-    date: "1851-10-18",
-  },
-  {
-    title: "War and Peace",
-    author: "Leo Tolstoy",
-    isbn: "978-0143035005",
-    genre: "Historical Fiction",
-    date: "1869-01-01",
-  },
-  {
-    title: "The Catcher in the Rye",
-    author: "J.D. Salinger",
-    isbn: "978-0316769488",
-    genre: "Coming-of-Age Fiction",
-    date: "1951-07-16",
-  },
-  {
-    title: "One Hundred Years of Solitude",
-    author: "Gabriel Garcia Marquez",
-    isbn: "978-0060883287",
-    genre: "Magical Realism",
-    date: "1967-05-30",
-  },
-  {
-    title: "The Odyssey",
-    author: "Homer",
-    isbn: "978-0140268867",
-    genre: "Epic Poetry",
-    date: "0800 BC",
-  },
-];
+
 
 export default function BookCatalog() {
+
+    const {books, fetchBooks, token, url} = useAuthStore()
+    useEffect(()=>{
+    if(!books){
+      fetchBooks()
+    }
+    }, [books])
+    // console.log(books);
+
+    const deleteBook = async (bookId) => {
+        try {
+      const res = await axios.delete(`${url}admin/delete-book/${bookId}`,  {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.status === 200) {
+        toast.success(res.data.message );
+        // console.log(res.data);
+       fetchBooks(); // Refresh the book list
+        
+      } else {
+        toast.error("Failed to delete book.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.error || "Something went wrong while delete the book.");
+    }
+    }
+    
+    
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-100 via-blue-50 to-white p-6 mb-12">
+        <ToastContainer />
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <div>
@@ -116,26 +82,24 @@ export default function BookCatalog() {
                 <th className="px-6 py-3">Author</th>
                 <th className="px-6 py-3">ISBN</th>
                 <th className="px-6 py-3">Genre</th>
-                <th className="px-6 py-3">Publication Date</th>
                 <th className="px-6 py-3">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white text-gray-800">
-              {books.map((book, i) => (
+              {books?.map((book, i) => (
                 <tr key={i} className="border-t border-gray-200 hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">{book.title}</td>
                   <td className="px-6 py-4 text-blue-600 whitespace-nowrap">{book.author}</td>
-                  <td className="px-6 py-4">{book.isbn}</td>
+                  <td className="px-6 py-4">{book.isbn || "N/A"}</td>
                   <td className="px-6 py-4">
                     <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
-                      {book.genre}
+                      {book.category || "N/A"}
                     </span>
                   </td>
-                  <td className="px-6 py-4">{book.date}</td>
                   <td className="px-6 py-4 text-sm text-blue-500 font-medium space-x-2">
-                    <button className="hover:underline">Edit</button>
+                   <Link href={`/auth/dashbdelete/${book._id}`}> <button className="hover:underline cursor-pointer">Edit</button></Link>
                     <span>|</span>
-                    <button className="hover:underline text-red-500">Remove</button>
+                    <button className="hover:underline text-red-500 cursor-pointer" onClick={()=>deleteBook(book._id)}>Remove</button>
                   </td>
                 </tr>
               ))}

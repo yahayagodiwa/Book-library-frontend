@@ -162,7 +162,7 @@ const Page = () => {
                     <h3 className="font-semibold text-[#111827] text-lg mb-1 truncate">
                       {book.title}
                     </h3>
-                    <p className="text-sm text-gray-500">{book.author?.username || "Unknown Author"}</p>
+                    <p className="text-sm text-gray-500">{book.author|| "Unknown Author"}</p>
                   </Link>
                 </div>
               ))

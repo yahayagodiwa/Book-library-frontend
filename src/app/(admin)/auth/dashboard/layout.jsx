@@ -13,7 +13,7 @@ import { IoSettings } from "react-icons/io5";
 const navLinks = [
   { label: "Dashboard", href: "/auth/dashboard", icon: <MdSpaceDashboard size={20} /> },
   { label: "Profile", href: "/auth/dashboard/profile", icon: <FaUser size={20} /> },
-  { label: "My Books", href: "/auth/dashboard/books", icon: <FaBookOpenReader size={20} /> },
+  { label: "Books", href: "/auth/dashboard/books", icon: <FaBookOpenReader size={20} /> },
   { label: "Fines", href: "/auth/dashboard/fines", icon: <span className="text-xl">💰</span> },
   { label: "Settings", href: "/auth/dashboard/settings", icon: <IoSettings size={20} /> },
 ];
@@ -42,7 +42,7 @@ const SidebarLayout = ({ children }) => {
         {/* Sidebar */}
         <aside
           className={clsx(
-            "fixed top-0 left-0 h-full w-64 bg-gradient-to-r from-gray-400 to-gray-100 shadow-2xl z-40 p-6 space-y-4 transform transition-transform duration-300",
+            "fixed top-0 left-0 h-full w-64  shadow-2xl z-40 p-6 space-y-4 transform transition-transform duration-300",
             "md:translate-x-0 md:static md:block",
             isOpen ? "translate-x-0" : "-translate-x-full"
           )}

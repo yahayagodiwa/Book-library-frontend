@@ -53,19 +53,19 @@ export default function AdminDashboardPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-bl from-gray-100 to-gray-300 rounded-2xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
+        <div className=" rounded-2xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
           <h3 className="text-sm font-medium text-gray-500">Total Books</h3>
           <p className="text-3xl font-bold text-indigo-600">{books?.length}</p>
         </div>
-        <div className="bg-gradient-to-bl from-gray-100 to-gray-300 rounded-2xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
+        <div className=" rounded-2xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
           <h3 className="text-sm font-medium text-gray-500">Overdue Books</h3>
           <p className="text-3xl font-bold text-rose-600">{dueBooks?.length}</p>
         </div>
-        <div className="bg-gradient-to-bl from-gray-100 to-gray-300 rounded-2xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
+        <div className=" rounded-2xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
           <h3 className="text-sm font-medium text-gray-500">Total Fines Collected</h3>
           <p className="text-3xl font-bold text-emerald-600">${totalFine}</p>
         </div>
-        <div className="bg-gradient-to-bl from-gray-100 to-gray-300 rounded-2xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
+        <div className=" rounded-2xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
           <h3 className="text-sm font-medium text-gray-500">Your Role</h3>
           <p className="text-3xl font-bold text-purple-600">{user?.role || "Admin"}</p>
         </div>
