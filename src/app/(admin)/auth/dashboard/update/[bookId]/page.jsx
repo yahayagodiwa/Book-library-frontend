@@ -75,7 +75,7 @@ const page = () => {
   // Update Book
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     if (!formData.title || !formData.description || !formData.fineAmount || !formData.category) {
       return toast.error("Please fill all required fields.");
     }
@@ -101,6 +101,7 @@ const page = () => {
 
       if (res.status === 200) {
         toast.success(res.data.message );
+        setLoading(false);
         // console.log(res.data);
         setInterval(()=>{
             window.location.reload();
@@ -116,10 +117,12 @@ const page = () => {
         setBookCover(null);
       } else {
         toast.error("Failed to update book.");
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
       toast.error(err.response?.data?.error || "Something went wrong while updating the book.");
+      setLoading(false);
     }
   };
 
@@ -215,9 +218,9 @@ const page = () => {
         <div>
           <button
             type="submit"
-            className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition duration-200 shadow-md"
+            className="w-full cursor-pointer bg-indigo-500 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition duration-200 shadow-md"
           >
-            Update Book
+           {loading ? "Processing…": "Update Book"}
           </button>
         </div>
       </form>

@@ -44,6 +44,7 @@ const categories = [
 
 const AddBookForm = () => {
   const { url, token } = useAuthStore();
+  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
     title: "",
@@ -70,7 +71,7 @@ const AddBookForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+setLoading(true)
 
     if (!formData.title || !formData.description || !formData.fineAmount || !formData.category || !bookCover) {
       return toast.error("Please fill all required fields.");
@@ -96,11 +97,12 @@ const AddBookForm = () => {
       });
 
       if (res.status !== 200 && res.status !== 201) {
-        return console.log(res.data?.error || "Failed to add book");
+        return toast.error(res.data?.error || "Failed to add book");
+        setLoading(false)
       }
-      console.log(res.data);
-      
-      setSuccess("Book uploaded successfully!");
+      // console.log(res.data);
+      toast.success(res.data.message)
+      setLoading(false)
       setFormData({
         title: "",
         description: "",
@@ -108,8 +110,10 @@ const AddBookForm = () => {
         category: "General",
         author: "",
       });
-      
         setBookCover(null);
+        setInterval(()=>{
+          window.location.href = '/auth/dashboard/books'
+        }, 2000)
     } catch (err) {
       console.error(err);
     }
@@ -203,9 +207,9 @@ const AddBookForm = () => {
         <div>
           <button
             type="submit"
-            className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition duration-200 shadow-md"
+            className="w-full bg-blue-700 hover:bg-blue-800 cursor-pointer text-white font-bold py-3 rounded-lg transition duration-200 shadow-md"
           >
-            Upload Book
+           {loading ? "Uploading......": " Upload Book"}
           </button>
         </div>
       </form>

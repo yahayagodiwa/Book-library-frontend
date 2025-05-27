@@ -1,49 +1,63 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useAuthStore from "../../../../../../store";
 import Link from "next/link";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 
-
-
 export default function BookCatalog() {
+  const { books, fetchBooks, token, url } = useAuthStore();
 
-    const {books, fetchBooks, token, url} = useAuthStore()
-    useEffect(()=>{
-    if(!books){
-      fetchBooks()
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [selectedAuthor, setSelectedAuthor] = useState("");
+
+  useEffect(() => {
+    if (!books) {
+      fetchBooks();
     }
-    }, [books])
-    // console.log(books);
+  }, [books]);
 
-    const deleteBook = async (bookId) => {
-        try {
-      const res = await axios.delete(`${url}admin/delete-book/${bookId}`,  {
+  const deleteBook = async (bookId) => {
+    try {
+      const res = await axios.delete(`${url}admin/delete-book/${bookId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (res.status === 200) {
-        toast.success(res.data.message );
-        // console.log(res.data);
-       fetchBooks(); // Refresh the book list
-        
+        toast.success(res.data.message);
+        fetchBooks(); // Refresh the book list
       } else {
         toast.error("Failed to delete book.");
       }
     } catch (err) {
       console.error(err);
-      toast.error(err.response?.data?.error || "Something went wrong while delete the book.");
+      toast.error(
+        err.response?.data?.error || "Something went wrong while deleting the book."
+      );
     }
-    }
-    
-    
+  };
+
+  const genres = [...new Set(books?.map((book) => book.category).filter(Boolean))];
+  const authors = [...new Set(books?.map((book) => book.author).filter(Boolean))];
+
+  const filteredBooks = books?.filter((book) => {
+    const matchesSearch =
+      book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      book.isbn?.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesGenre = selectedGenre ? book.category === selectedGenre : true;
+    const matchesAuthor = selectedAuthor ? book.author === selectedAuthor : true;
+
+    return matchesSearch && matchesGenre && matchesAuthor;
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-100 via-blue-50 to-white p-6 mb-12">
-        <ToastContainer />
+      <ToastContainer />
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <div>
@@ -52,25 +66,44 @@ export default function BookCatalog() {
               Search and manage your book collection.
             </p>
           </div>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+         <Link href='/auth/dashboard/record'> <button className="bg-blue-600 cursor-pointer text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
             Add Book
-          </button>
+          </button></Link>
         </div>
 
         <div className="flex flex-wrap gap-4 items-center">
           <input
             type="text"
-            placeholder="Search by title, author, or ISBN"
+            placeholder="Search by title or ISBN"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:ring-blue-500 focus:outline-none"
           />
-          <select className="border border-gray-300 rounded-lg px-3 py-2 text-gray-600">
-            <option>Genre</option>
+
+          <select
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+            className="border border-gray-300 rounded-lg px-3 py-2 text-gray-600"
+          >
+            <option value="">All Genres</option>
+            {genres.map((genre, i) => (
+              <option key={i} value={genre}>
+                {genre}
+              </option>
+            ))}
           </select>
-          <select className="border border-gray-300 rounded-lg px-3 py-2 text-gray-600">
-            <option>Author</option>
-          </select>
-          <select className="border border-gray-300 rounded-lg px-3 py-2 text-gray-600">
-            <option>Publication Date</option>
+
+          <select
+            value={selectedAuthor}
+            onChange={(e) => setSelectedAuthor(e.target.value)}
+            className="border border-gray-300 rounded-lg px-3 py-2 text-gray-600"
+          >
+            <option value="">All Authors</option>
+            {authors.map((author, i) => (
+              <option key={i} value={author}>
+                {author}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -86,10 +119,12 @@ export default function BookCatalog() {
               </tr>
             </thead>
             <tbody className="bg-white text-gray-800">
-              {books?.map((book, i) => (
+              {filteredBooks?.map((book, i) => (
                 <tr key={i} className="border-t border-gray-200 hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">{book.title}</td>
-                  <td className="px-6 py-4 text-blue-600 whitespace-nowrap">{book.author}</td>
+                  <td className="px-6 py-4 text-blue-600 whitespace-nowrap">
+                    {book.author}
+                  </td>
                   <td className="px-6 py-4">{book.isbn || "N/A"}</td>
                   <td className="px-6 py-4">
                     <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
@@ -97,12 +132,27 @@ export default function BookCatalog() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-blue-500 font-medium space-x-2">
-                   <Link href={`/auth/dashbdelete/${book._id}`}> <button className="hover:underline cursor-pointer">Edit</button></Link>
+                    <Link href={`/auth/dashboard/update/${book._id}`}>
+                      <button className="hover:underline cursor-pointer">Edit</button>
+                    </Link>
                     <span>|</span>
-                    <button className="hover:underline text-red-500 cursor-pointer" onClick={()=>deleteBook(book._id)}>Remove</button>
+                    <button
+                      className="hover:underline text-red-500 cursor-pointer"
+                      onClick={() => deleteBook(book._id)}
+                    >
+                      Remove
+                    </button>
                   </td>
                 </tr>
               ))}
+
+              {filteredBooks?.length === 0 && (
+                <tr>
+                  <td colSpan="5" className="text-center py-6 text-gray-500">
+                    No books found.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
