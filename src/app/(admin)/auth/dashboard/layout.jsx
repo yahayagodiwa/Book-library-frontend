@@ -14,6 +14,8 @@ const navLinks = [
   { label: "Dashboard", href: "/auth/dashboard", icon: <MdSpaceDashboard size={20} /> },
   { label: "Profile", href: "/auth/dashboard/profile", icon: <FaUser size={20} /> },
   { label: "Books", href: "/auth/dashboard/books", icon: <FaBookOpenReader size={20} /> },
+  { label: "Borrows", href: "/auth/dashboard/borrows", icon: <FaBookOpenReader size={20} /> },
+  { label: "Returns", href: "/auth/dashboard/returns", icon: <FaBookOpenReader size={20} /> },
   { label: "Fines", href: "/auth/dashboard/fines", icon: <span className="text-xl">💰</span> },
   { label: "Settings", href: "/auth/dashboard/settings", icon: <IoSettings size={20} /> },
 ];
@@ -25,7 +27,7 @@ const SidebarLayout = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   return (
