@@ -56,7 +56,6 @@ const ReturnedBooks = () => {
   return (
     <div className="p-2 md:p-6 overflow-x-auto">
         <ToastContainer />
-      <h2 className="text-3xl font-bold mb-6"> Returned Books</h2>
 
       <input
         type="text"

@@ -24,7 +24,7 @@ export default function BorrowedBooks() {
         setBorrowedBooks(res.data);
       } catch (error) {
         console.error(error);
-        toast.error("Failed to load borrowed books.");
+        toast.error(error);
       } finally {
         setLoading(false);
       }
@@ -49,11 +49,6 @@ export default function BorrowedBooks() {
       <ToastContainer />
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center flex-wrap gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800">Borrowed Books</h1>
-            <p className="text-gray-500">Monitor overdue and unreturned books.</p>
-          </div>
-
           <input
             type="text"
             placeholder="Search by book title"
