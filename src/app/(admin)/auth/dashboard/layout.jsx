@@ -14,8 +14,6 @@ const navLinks = [
   { label: "Dashboard", href: "/auth/dashboard", icon: <MdSpaceDashboard size={20} /> },
   { label: "Profile", href: "/auth/dashboard/profile", icon: <FaUser size={20} /> },
   { label: "Books", href: "/auth/dashboard/books", icon: <FaBookOpenReader size={20} /> },
-  { label: "Borrows", href: "/auth/dashboard/borrows", icon: <FaBookOpenReader size={20} /> },
-  { label: "Returns", href: "/auth/dashboard/returns", icon: <FaBookOpenReader size={20} /> },
   { label: "Fines", href: "/auth/dashboard/fines", icon: <span className="text-xl">💰</span> },
   { label: "Settings", href: "/auth/dashboard/settings", icon: <IoSettings size={20} /> },
 ];
@@ -102,7 +100,7 @@ const SidebarLayout = ({ children }) => {
 {/* <div class="bg-gradient-to-r from-gray-100 via-blue-50 to-white"></div> */}
 
           {/* Main Children */}
-          <main className="p-6 bg-[#F3F4F6]">{children}</main>
+          <main className="md:p-6 bg-[#F3F4F6]">{children}</main>
         </div>
       </div>
     </div>
