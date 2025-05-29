@@ -14,7 +14,7 @@ const navLinks = [
   { label: "Dashboard", href: "/auth/dashboard", icon: <MdSpaceDashboard size={20} /> },
   { label: "Profile", href: "/auth/dashboard/profile", icon: <FaUser size={20} /> },
   { label: "Books", href: "/auth/dashboard/books", icon: <FaBookOpenReader size={20} /> },
-  { label: "Fines", href: "/auth/dashboard/fines", icon: <span className="text-xl">💰</span> },
+  { label: "Users", href: "/auth/dashboard/users", icon: <span className="text-xl">💰</span> },
   { label: "Settings", href: "/auth/dashboard/settings", icon: <IoSettings size={20} /> },
 ];
 
